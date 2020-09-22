@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## Terraforming Mars Cost-Benefit Analysis
-# <br>
-# Terraforming Mars is a competitive board game developed by Jacob Fryxelius and published by FryxGames in 2016. Players take on the role of corporations tasked with making Mars habitable through the raising of the oxygen level, temperature, and ocean coverage, as well as sundry other projects to progress humanity.
-# 
-# Currently sitting at #4 on BoardGameGeek's ranked board game list, Terraforming Mars has found broad popularity among strategy board gamers in large part due to its variety and complexity. With 208 unique cards and 12 distinct corporations, players are put into an endless assortment of scenarios. This incredible depth means that players must often intuit their next move rather than deduce it from values and probabilities.
-# 
-# In a bid to add more deduction back into the equation, this analysis aims to take every card in Terraforming Mars and boil it down to a single value in credits (the game's main resource) for simple value-comparison.
-# 
-# Let's get started.
-
 import numpy as np
 from statistics import median
 import pandas as pd
@@ -18,69 +8,54 @@ import seaborn as sns
 import csv
 import ast
 import re
+import math
 
 np.set_printoptions(threshold=np.inf)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
-
-# The base_cards database, populated from a hand-entered csv, follows a couple of conventions:
-# * When a resource is written in uppercase it refers to that resource's production, whereas when written in lowercase it refers to the resource iself.
-# * All nouns are written in the singular in order to simplify pandas referencing.
-# 
-# The all_games database is a collection of stats from over 12,000 individually logged games downloaded from Simeon Simeonov's excellent [Terraforming Mars website](https://ssimeonoff.github.io/). The base_games database contains only the matches from all_games which were played with the full base version of the game.
 
 # create databases
 base_cards = pd.read_csv('TM_base_project_list.csv')
 all_games = pd.read_csv('games_list.csv')
 base_games = all_games[(all_games.expansions == "['CORPORATE']") & (all_games.map == "THARSIS")]
 
-# First, an average number of generations for each player count must be derived from base_games. These will be used to determine the income which will be generated over the remainder of the game for a given card after the generation during which it is played. They'll also be used to split the game into four quarters to illustrate how a card's value changes over time.
-
 # determine generation averages per player count
-lastgen2p = int(round(base_games[base_games.players == 2].generations.mean()))
-lastgen3p = int(round(base_games[base_games.players == 3].generations.mean()))
-lastgen4p = int(round(base_games[base_games.players == 4].generations.mean()))
-lastgen5p = int(round(base_games[base_games.players == 5].generations.mean()))
+last_gen_2p = int(round(base_games[base_games.players == 2].generations.mean()))
+last_gen_3p = int(round(base_games[base_games.players == 3].generations.mean()))
+last_gen_4p = int(round(base_games[base_games.players == 4].generations.mean()))
+last_gen_5p = int(round(base_games[base_games.players == 5].generations.mean()))
 
-lastgens = {
-            'lastgen2p': int(round(base_games[base_games.players == 2].generations.mean())),
-            'lastgen3p': int(round(base_games[base_games.players == 3].generations.mean())),
-            'lastgen4p': int(round(base_games[base_games.players == 4].generations.mean())),
-            'lastgen5p': int(round(base_games[base_games.players == 5].generations.mean()))
+last_gens = {
+            'last_gen_2p': int(round(base_games[base_games.players == 2].generations.mean())),
+            'last_gen_3p': int(round(base_games[base_games.players == 3].generations.mean())),
+            'last_gen_4p': int(round(base_games[base_games.players == 4].generations.mean())),
+            'last_gen_5p': int(round(base_games[base_games.players == 5].generations.mean()))
            }
 
 # average game length split into quarters with the median generation taken from each quarter
 # X players, quarter N, median generation
 gen_quarters = {
-               '2pq1gen':round(lastgen2p/4/2),
-               '2pq2gen':round(lastgen2p/4/2 + lastgen2p/4),
-               '2pq3gen':round(lastgen2p/4/2 + lastgen2p/4*2),
-               '2pq4gen':round(lastgen2p/4/2 + lastgen2p/4*3),
-               '3pq1gen':round(lastgen3p/4/2),
-               '3pq2gen':round(lastgen3p/4/2 + lastgen3p/4),
-               '3pq3gen':round(lastgen3p/4/2 + lastgen3p/4*2),
-               '3pq4gen':round(lastgen3p/4/2 + lastgen3p/4*3),
-               '4pq1gen':round(lastgen4p/4/2),
-               '4pq2gen':round(lastgen4p/4/2 + lastgen4p/4),
-               '4pq3gen':round(lastgen4p/4/2 + lastgen4p/4*2),
-               '4pq4gen':round(lastgen4p/4/2 + lastgen4p/4*3),
-               '5pq1gen':round(lastgen5p/4/2),
-               '5pq2gen':round(lastgen5p/4/2 + lastgen5p/4),
-               '5pq3gen':round(lastgen5p/4/2 + lastgen5p/4*2),
-               '5pq4gen':round(lastgen5p/4/2 + lastgen5p/4*3)
+               '2p_q1_gen':round(last_gen_2p/4/2),
+               '2p_q2_gen':round(last_gen_2p/4/2 + last_gen_2p/4),
+               '2p_q3_gen':round(last_gen_2p/4/2 + last_gen_2p/4*2),
+               '2p_q4_gen':round(last_gen_2p/4/2 + last_gen_2p/4*3),
+               '3p_q1_gen':round(last_gen_3p/4/2),
+               '3p_q2_gen':round(last_gen_3p/4/2 + last_gen_3p/4),
+               '3p_q3_gen':round(last_gen_3p/4/2 + last_gen_3p/4*2),
+               '3p_q4_gen':round(last_gen_3p/4/2 + last_gen_3p/4*3),
+               '4p_q1_gen':round(last_gen_4p/4/2),
+               '4p_q2_gen':round(last_gen_4p/4/2 + last_gen_4p/4),
+               '4p_q3_gen':round(last_gen_4p/4/2 + last_gen_4p/4*2),
+               '4p_q4_gen':round(last_gen_4p/4/2 + last_gen_4p/4*3),
+               '5p_q1_gen':round(last_gen_5p/4/2),
+               '5p_q2_gen':round(last_gen_5p/4/2 + last_gen_5p/4),
+               '5p_q3_gen':round(last_gen_5p/4/2 + last_gen_5p/4*2),
+               '5p_q4_gen':round(last_gen_5p/4/2 + last_gen_5p/4*3)
               }
-keys2pgen = ['2pq1gen', '2pq2gen', '2pq3gen', '2pq4gen']
-keys3pgen = ['3pq1gen', '3pq2gen', '3pq3gen', '3pq4gen']
-keys4pgen = ['4pq1gen', '4pq2gen', '4pq3gen', '4pq4gen']
-keys5pgen = ['5pq1gen', '5pq2gen', '5pq3gen', '5pq4gen']
-
-# Next, each resource in the game must be converted to a number of credits. The [standard projects](https://3.bp.blogspot.com/-fs7vQZGRFs4/XAjAYOSBspI/AAAAAAAAFSA/kInbyuaLoLc0PANwJeFDpJditT5Ims3_wCLcBGAs/s1600/terraforming-mars-standard-projects-1.jpg) are set as listed on the game board, and steel and titanium as listed on the [player boards](https://cf.geekdo-images.com/medium/img/qa7YwBE6pc-ZR0relFRrzUAlQXw=/fit-in/500x500/filters:no_upscale()/pic2891980.jpg).  
-# 
-# Plants and heat are set by dividing 8, the number of plants/heat needed to equal a temp/greenery (also illustrated on the player boards), into the credit values for the temp and greenery standard projects.  
-# 
-# For energy, it was necessary to borrow some information from one of the expansions: _Colonies_. In order to trade with a colony, players must spend either 9 credits, 3 titanium, or 3 energy. This suggests that 1 energy = 1 titanium = 3 credits.  
-# 
-# Drawing a card is valued at 4 credits, combining the price to buy a card (3 credits) with the 1 credit gained from discarding it using the "Sell patents" standard project.
+keys_2p_gen = ['2p_q1_gen', '2p_q2_gen', '2p_q3_gen', '2p_q4_gen']
+keys_3p_gen = ['3p_q1_gen', '3p_q2_gen', '3p_q3_gen', '3p_q4_gen']
+keys_4p_gen = ['4p_q1_gen', '4p_q2_gen', '4p_q3_gen', '4p_q4_gen']
+keys_5p_gen = ['5p_q1_gen', '5p_q2_gen', '5p_q3_gen', '5p_q4_gen']
 
 # variable definitions
 
@@ -93,8 +68,8 @@ temp = 14
 ocean = 18
 greenery = 23
 def city(income):
-	return 25 - income
-oxygen = greenery / 2
+    return 25 - (income + 1)
+oxygen = TR
 
 # resources
 credit = 1
@@ -107,38 +82,61 @@ draw = 4
 
 # production
 def CREDIT(income):
-	return income
+    return income + 1
 def STEEL(income):
-	return 2 * income
+    return 2 * income
 def TITANIUM(income):
-	return 3 * income
+    return 3 * income
 def PLANT(income):
-	return (greenery/8) * income
+    return greenery/8 * (income + 1)
 def ENERGY(income):
-	return 3 * income
+    return 3 * income
 def HEAT(income):
-	return (temp/8) * income
+    return (temp/8) * income
 
-vars_dict_static = {'temp':temp, 'ocean':ocean, 'greenery':greenery, 'credit':credit, 'steel':steel,
-             		'titanium':titanium, 'plant':plant, 'heat':heat, 'energy':energy, 'draw':draw}
+vars_dict_static = {'temp':temp, 'ocean':ocean, 'greenery':greenery, 'credit':credit, 'steel':steel, 
+                    'titanium':titanium, 'plant':plant, 'heat':heat, 'energy':energy, 'draw':draw}
 
-vars_dict_variable = {'city':city, 'CREDIT':CREDIT, 'STEEL':STEEL, 'TITANIUM':TITANIUM,
+vars_dict_variable = {'city':city, 'CREDIT':CREDIT, 'STEEL':STEEL, 'TITANIUM':TITANIUM, 
                       'PLANT':PLANT, 'ENERGY':ENERGY, 'HEAT':HEAT}
 
+vars_dict_resource = {}
 
-# Victory points (VP) must also be converted to credits. To do this, the three terraforming standard projects were used. Since they confer a terraforming rating (TR) and not a victory point, the extra income from the TR must be subtracted from the cost of the project. This means that similar to the cards themselves, the value of a VP changes over time.
-# 
-# To come to a single value for a given generation and player count, the "points per credit" are determined for each of the three standard terraforming projects and then the average is taken. Note that greeneries are worth two points (one for the TR from raising the oxygen, another from the greenery tile itself) and so are calculated accordingly.
+# determine number of remaining generations
+def remgen(generation, player_count):
+    global income
+    for players in last_gens:
+        if str(player_count) in players:
+            last_gen = last_gens[players]
+    income = last_gen - generation
+    return income, last_gen
+
+#determine added value from gained resources when placing a tile
+
+tile_land = (
+            (2*steel * 3 +
+            draw * 3 +
+            steel * 3 +
+            plant + titanium +
+            plant * 10 +
+            2*plant * 7 +
+            titanium)
+            / 48)
+
+tile_ocean = (
+             (2*steel +
+             draw +
+             plant * 3 +
+             2*plant * 4 +
+             2*titanium)
+             / 12)
 
 # define credits per victory point
 def credits_per_vp(generation, player_count):
-    for players in lastgens:
-        if str(player_count) in players:
-            lastgen = lastgens[players]
-    income = lastgen - generation
+    income, last_gen = remgen(generation, player_count)
     temp_ppc = 1/(temp - income) # ppc = points per credit
-    ocean_ppc = 1/(ocean - income)
-    greenery_ppc = 2/(greenery - income)
+    ocean_ppc = 1/(ocean - income - tile_ocean)
+    greenery_ppc = 2/(greenery - income - tile_land)
     ppc = (temp_ppc + ocean_ppc + greenery_ppc)/4
     vp = 1/ppc
     return vp
@@ -168,104 +166,93 @@ keys3pcpp = ['3pq1cpp', '3pq2cpp', '3pq3cpp', '3pq4cpp']
 keys4pcpp = ['4pq1cpp', '4pq2cpp', '4pq3cpp', '4pq4cpp']
 keys5pcpp = ['5pq1cpp', '5pq2cpp', '5pq3cpp', '5pq4cpp']
 
-# determine number of remaining generations
-def remgen(generation, player_count):
-    global income
-    for players in lastgens:
-        if str(player_count) in players:
-            lastgen = lastgens[players]
-    income = lastgen - generation
-    return income
-
 #run above functions and determine credits per TR
 def initialize(generation, player_count):
-    income = remgen(generation, player_count)
+    income, last_gen = remgen(generation, player_count)
     vp = credits_per_vp(generation, player_count)
     TR = vp + income
-    return income, vp, TR
+    return income, vp, TR, last_gen
 
 # chance to draw each tag
 
 # Earth
 earth_tags = base_cards[base_cards.Tags.str.contains('earth', na=False)]
-chance_earth = len(earth_tags) / len(base_cards)
+chance_earth_played = len(earth_tags) / len(base_cards)
+chance_earth_showing = len(earth_tags[~earth_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Science
 science_tags = base_cards[base_cards.Tags.str.contains('science', na=False)]
-chance_science = len(science_tags) / len(base_cards)
+chance_science_played = len(science_tags) / len(base_cards)
+chance_science_showing = len(science_tags[~science_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Plant
 plant_tags = base_cards[base_cards.Tags.str.contains('plant', na=False)]
-chance_plant = len(plant_tags) / len(base_cards)
+chance_plant_played = len(plant_tags) / len(base_cards)
+chance_plant_showing = len(plant_tags[~plant_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Microbe
 microbe_tags = base_cards[base_cards.Tags.str.contains('microbe', na=False)]
-chance_microbe = len(microbe_tags) / len(base_cards)
+chance_microbe_played = len(microbe_tags) / len(base_cards)
+chance_microbe_showing = len(microbe_tags[~microbe_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Animal
 animal_tags = base_cards[base_cards.Tags.str.contains('animal', na=False)]
-chance_animal = len(animal_tags) / len(base_cards)
+chance_animal_played = len(animal_tags) / len(base_cards)
+chance_animal_showing = len(animal_tags[~animal_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Space
 space_tags = base_cards[base_cards.Tags.str.contains('space', na=False)]
-chance_space = len(space_tags) / len(base_cards)
+chance_space_played = len(space_tags) / len(base_cards)
+chance_space_showing = len(space_tags[~space_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Event
 event_tags = base_cards[base_cards.Tags.str.contains('event', na=False)]
-chance_event = len(event_tags) / len(base_cards)
+chance_event_played = len(event_tags) / len(base_cards)
+
 # Building
 building_tags = base_cards[base_cards.Tags.str.contains('building', na=False)]
-chance_building = len(building_tags) / len(base_cards)
+chance_building_played = len(building_tags) / len(base_cards)
+chance_building_showing = len(building_tags[~building_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Jovian
 jovian_tags = base_cards[base_cards.Tags.str.contains('jovian', na=False)]
-chance_jovian = len(jovian_tags) / len(base_cards)
+chance_jovian_played = len(jovian_tags) / len(base_cards)
+chance_jovian_showing = len(jovian_tags[~jovian_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # Power
 power_tags = base_cards[base_cards.Tags.str.contains('power', na=False)]
-chance_power = len(power_tags) / len(base_cards)
+chance_power_played = len(power_tags) / len(base_cards)
+chance_power_showing = len(power_tags[~power_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 # City
 city_tags = base_cards[base_cards.Tags.str.contains('city', na=False)]
-chance_city = len(city_tags) / len(base_cards)
+chance_city_played = len(city_tags) / len(base_cards)
+chance_city_showing = len(city_tags[~city_tags.Tags.str.contains('event', na=False)]) \
+                       / len(base_cards)
 
-tags_dict = {'earth':chance_earth, 'science':chance_science, 'plant':chance_plant, 
-			 'microbe':chance_microbe, 'animal':chance_animal, 'space':chance_space,
-             'event':chance_event, 'building':chance_building, 'jovian':chance_jovian,
-             'power':chance_power, 'city':chance_city}
+tags_played_dict = {'earth':chance_earth_played, 'science':chance_science_played, 
+                    'plant':chance_plant_played, 'microbe':chance_microbe_played, 
+                    'animal':chance_animal_played, 'space':chance_space_played,
+                    'event':chance_event_played, 'building':chance_building_played, 
+                    'jovian':chance_jovian_played,'power':chance_power_played, 
+                    'city':chance_city_played}
 
-# #### Tile placement
-# 
-# Placing a tile on an area with resources allows the player to take those resources, adding to the value of the tile. To determine the average value added from these map resources, the total sum of credits gained from all of the resources on the map are divided by the total number of areas. This is done separately for ocean areas and non-ocean areas. The two off-world areas and the Noctis City area have been disregarded, since they cannot be placed upon except for unique circumstances.
-# 
-# <img src="https://4.bp.blogspot.com/-KVleOqhdyg0/XBxty1rpALI/AAAAAAAAFac/iJsDNEW0SDw6gTK2aHIS0oLc9px5XvzjQCEwYBhgL/s1600/TM%2BOriginal-Mars%2BOnly.jpg" alt="TM map" width="500"/>
+tags_showing_dict = {'earth':chance_earth_showing, 'science':chance_science_showing, 
+                    'plant':chance_plant_showing, 'microbe':chance_microbe_showing, 
+                    'animal':chance_animal_showing, 'space':chance_space_showing,
+                    'event':chance_event_played, 'building':chance_building_showing, 
+                    'jovian':chance_jovian_showing,'power':chance_power_showing, 
+                     'city':chance_city_showing}
 
-#determine added value from gained resources when placing a tile
-
-tile_land = (
-            (2*steel * 3 +
-            draw * 3 +
-            steel * 3 +
-            plant + titanium +
-            plant * 10 +
-            2*plant * 7 +
-            titanium)
-            / 48)
-
-tile_ocean = (
-             (2*steel +
-             draw +
-             plant * 3 +
-             2*plant * 4 +
-             2*titanium)
-             / 12)
-
-# #### Microbes  
-# The following cards are taken into account when calculating the value of a microbe:
-# * Ants - 1 vp per 2 microbes  
-# * Decomposers - 1 vp per 3 microbes  
-# * GHG Producing Bacteria - 1 temp per 2 microbes  
-# * Nitrite Reducing Bacteria - 1 TR per 3 microbes  
-# * Regolith Eaters - 1 oxygen per 2 microbes  
-# * Tardigrades - 1 vp per 4 microbes  
+def cards_current(generation):
+    return 10 + (4 * (generation - 1))
 
 # microbe value
 # microbe_tags = base_cards[base_cards.Tags.str.contains('microbe', na=False)]
 # display(microbe_tags)
 
 def microbe_val(generation, player_count):
-    income, vp, TR = initialize(generation, player_count)
+    income, vp, TR, last_gen = initialize(generation, player_count)
     
     ants = vp / 2
     decomposers = vp / 3
@@ -279,24 +266,14 @@ def microbe_val(generation, player_count):
     microbe = sum(microbes_list) / len(microbes_list)
     return microbe
 
-# #### Animals
-# 
-# The following cards are taken into account when calculating the value of an animal:  
-# * Birds - 1 vp per animal
-# * Fish - 1 vp per animal
-# * Livestock - 1 vp per animal
-# * Predators - 1 vp per animal
-# * Ecological Zone - 1 vp per 2 animals
-# * Herbivores - 1 vp per 2 animals
-# * Pets - 1 vp per 2 animals
-# * Small Animals - 1 vp per 2 animals
+vars_dict_resource.update({'microbe':microbe_val})
 
 # animal value
 # animal_tags = base_cards[base_cards.Tags.str.contains('animal', na=False)]
 # display(animal_tags)
 
 def animal_val(generation, player_count):
-    income, vp, TR = initialize(generation, player_count)
+    income, vp, TR, last_gen = initialize(generation, player_count)
     
     birds= fish= livestock= predators = vp
     ecological_zone= herbivores= pets= small_animals = vp/2
@@ -306,15 +283,204 @@ def animal_val(generation, player_count):
     animal = sum(animals_list) / len(animals_list)
     return animal
 
-# #### Number of cities played
-# 
-# The average number of cities played in a game is set at 11. This is derived as a result of personal experience through dozens of games (mostly 2-player) as well as a rough averaging from the discussion [here](https://boardgamegeek.com/thread/1861021/how-many-cities)
+vars_dict_resource.update({'animal':animal_val})
 
 cities_per_game = 11
+Mars_cities_per_game = 10
 
 def cities_current(generation, player_count):
-    for players in lastgens:
+    for players in last_gens:
         if str(player_count) in players:
-            lastgen = lastgens[players]
-    cities = (11 / lastgen) * generation
+            last_gen = last_gens[players]
+    cities = (11 / last_gen) * generation
     return cities
+
+def Mars_cities_current(generation, player_count):
+    for players in last_gens:
+        if str(player_count) in players:
+            last_gen = last_gens[players]
+    Mars_cities = (10 / last_gen) * generation
+    return Mars_cities
+
+# define special case cards to be left out of the main function
+special_cases = ['Adaptation Technology', 'Advanced Alloys', 'Anti-Gravity Technology', 'Ants', 
+                 'Arctic Algae', 'Business Network', 'Capital', 'CEO’s Favorite Project', 
+                 'Commercial District', 'Decomposers', 'Earth Catapult', 'Earth Office', 
+                 'Ecological Zone', 
+                 'Ganymede Colony', 'GHG Producing Bacteria', 'Herbivores', 'Immigrant City', 
+                 'Immigration Shuttles', 
+                 'Indentured Workers', 'Insulation', 'Inventor’s Guild', 'Io Mining Industries', 
+                 'Land Claim', 
+                 'Lava Flows', 'Mars University', 'Martian Rails', 'Mass Converter', 'Media Group', 
+                 'Mining Area', 'Mining Rights', 'Nitrite Reducing Bacteria', 
+                 'Nitrogen-Rich Asteroid', 'Noctis City', 'Olympus Conference', 'Optimal Aerobraking', 
+                 'Pets', 'Phobos Space Haven', 'Power Infrastructure',
+                 'Predators', 'Protected Habitat', 'Quantum Extractor', 'Regolith Eaters', 
+                 'Research Outpost', 
+                 'Robotic Workforce', 'Rover Construction', 'Search for Life', 'Shuttles', 
+                 'Space Station', 'Special Design', 
+                 'Standard Technology', 'Viral Enhancers', 'Water Import from Europa']
+
+base_cases = base_cards[~base_cards.Title.isin(special_cases)].copy().reset_index(drop=True)
+
+# main value calculation function
+def is_null(x):
+    return x is None or (isinstance(x, float) and math.isnan(x))
+
+
+def compute_additional_cost_value(add_cost, generation, player_count):
+    if is_null(add_cost):
+        return 0
+    value = 0
+    for idx, ele in enumerate(add_cost.split(',')):
+        add_cost_list = ele.strip().split(' ')
+        value -= vars_scan(add_cost_list, generation, player_count)
+    return value
+
+
+def compute_victory_points_value(victory, vp):
+    if is_null(victory) or not victory.isdigit():
+        return 0
+    return int(victory) * vp
+
+
+def compute_immediate_benefit_value(i_benefit, generation, player_count):
+    if is_null(i_benefit):
+        return 0
+
+    value = 0
+
+    for idx, ele in enumerate(i_benefit.split(',')):
+        i_benefit_list = ele.strip().split(' ')
+
+        # for benefits dependent on the amount of another variable
+        if 'per' in i_benefit_list:
+            value += pers(i_benefit_list, generation, player_count)
+
+        # for benefits with a choice; the larger of the two values is taken
+        elif 'or' in i_benefit_list:
+            value += ors((' ').join(i_benefit_list), generation, player_count)
+
+        # for ocean and greenery tiles played on the opposite site
+        elif 'land' in i_benefit_list and 'ocean' in i_benefit_list:
+            value += ocean + tile_land - tile_ocean
+        elif 'ocean' in i_benefit_list and 'greenery' in i_benefit_list:
+            value += greenery + tile_ocean - tile_land
+
+        # for special tiles
+        elif 'special' in i_benefit_list:
+            if 'ocean' in i_benefit_list:
+                value += tile_ocean
+            else:
+                value += tile_land
+
+         # for simple added values
+        else:
+            value += vars_scan(i_benefit_list, generation, player_count)
+
+    return value
+
+
+def compute_active_cost_benefit_value(a_cost, a_benefit, victory, generation, last_gen, player_count):
+    if is_null(a_cost) or is_null(a_benefit):
+        # Note: If one is null then the other must also be null
+        return 0
+
+    value = 0
+    current_gen = generation
+
+    while current_gen <= last_gen:
+        # Cost
+        cost = 0
+        act_cost_list = a_cost.split(' ')
+        if 'or' in a_cost:
+            cost = ors(a_cost, current_gen, player_count, cost=True)
+        else:
+            is_variable_benefit = any(
+                x for x in a_benefit.split(' ') if x in vars_dict_variable
+            )
+            if not is_variable_benefit or (is_variable_benefit and current_gen < last_gen):
+                cost = vars_scan(act_cost_list, current_gen, player_count)
+
+        # Benefit
+        benefit = 0
+        for benefit_list in a_benefit.split(','):
+            benefit_list_split = benefit_list.strip().split(' ')
+            if 'or' in benefit_list:
+                benefit += ors(benefit_list, current_gen, player_count)
+            elif 'on card' in benefit_list:
+                number = (int(victory[0]) / int(victory[6])) * int(benefit_list[0])
+                current_vp = credits_per_vp(current_gen, player_count)
+                benefit += number * current_vp
+            else:
+                variable_eles = set(vars_dict_variable) & {'CREDIT', 'PLANT'}
+                is_variable_benefit = any(x for x in benefit_list_split if x in variable_eles)
+                if not is_variable_benefit or (is_variable_benefit and current_gen < last_gen):
+                    # ensures increased production on the final turn isn't converted into points
+                    benefit += vars_scan(benefit_list_split, current_gen, player_count)
+
+        if cost < benefit:
+            value += benefit - cost
+
+        current_gen += 1
+
+    return value
+
+
+def compute_removal_value(removed, generation, player_count):
+    if is_null(removed):
+        return 0
+    
+    value = 0
+    
+    if 'or' in removed:
+        value += ors(removed, generation, player_count)
+    else:
+        value += vars_scan(removed.split(' '), generation, player_count)
+    return value
+
+
+def base_value(func):
+    def wrapper(database, generation, player_count):
+        def compute_value(row):
+            income, vp, TR, last_gen = initialize(generation, player_count)
+            
+            # Primary Cost
+            value = -row.at['Primary_Cost']
+
+            # Additional Cost
+            add_cost = row.at['Additional_Cost']
+            value += compute_additional_cost_value(add_cost, generation, player_count)
+
+            # Victory Points
+            victory = row.at['Victory_Points']
+            value += compute_victory_points_value(victory, vp)
+
+            # Immediate Benefit
+            i_benefit = row.at['Immediate_Benefit']
+            value += compute_immediate_benefit_value(i_benefit, generation, player_count)
+            
+            # Passive Benefit
+            p_benefit = row.at['Passive_Benefit']
+
+            # Active Cost/Benefit
+            a_cost = row.at['Active_Cost']
+            a_benefit = row.at['Active_Benefit']
+            value += compute_active_cost_benefit_value(a_cost, a_benefit, victory, generation, last_gen, player_count)
+
+            # Removed from Opponent
+            removed = row.at['Removed_from_Opponent']
+            value += compute_removal_value(removed, generation, player_count)
+
+            # Special Cases
+            value += func(database, generation, player_count, row, last_gen)
+            
+            return round(value)
+    
+        new_database = database
+        new_database['Value'] = database.apply(compute_value, axis=1)
+        new_database['Generation'] = generation
+        new_database['Players'] = player_count
+            
+        return new_database
+    return wrapper

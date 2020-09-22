@@ -8,11 +8,11 @@ Aerobraked Ammonia Asteroid,base,event,26,,"space, event",,,"2 microbe on other 
 AI Central,corporate,active,21,1 ENERGY,"science, building",3 science tag,1,,,,2 draw,
 Algae,base,automated,10,,plant,5 ocean,,"1 plant, 2 PLANT",,,,
 Anti-Gravity Technology,corporate,active,14,,science,7 science tag,3,,cards cost 2 credit fewer,,,
-Ants,base,active,9,,microbe,4% oxygen,1 per 2 microbe on card,,,remove 1 microbe from any card,add 1 microbe to card,1 microbe per turn (active)
+Ants,base,active,9,,microbe,4% oxygen,1 per 2 microbe on card,,,remove 1 microbe from any card,1 microbe on card,1 microbe per turn (active)
 Aquifer Pumping,base,active,18,,building,,,,,8 credit (steel may be spent),1 ocean,
 Archaebacteria,base,automated,6,,microbe,max -18°C,,1 PLANT,,,,
 Arctic Algae,base,active,12,,plant,max -12°C,,1 plant,"when an ocean is placed, 2 plant",,,
-Artificial Lake,base,automated,15,,building,-6°C,1,1 ocean on site not reserved for ocean,,,,
+Artificial Lake,base,automated,15,,building,-6°C,1,1 ocean on land site,,,,
 Artificial Photosynthesis,base,automated,12,,science,,,1 PLANT or 2 ENERGY,,,,
 Asteroid,base,event,14,,"space, event",,,"1 temp, 2 titanium",,,,3 plant
 Asteroid Mining,base,automated,30,,"jovian, space",,2,2 TITANIUM,,,,
@@ -20,7 +20,7 @@ Asteroid Mining Consortium,corporate,automated,13,,jovian,1 TITANIUM,1,1 TITANIU
 Beam from a Thorium Asteroid,base,automated,32,,"jovian, space, power",1 jovian tag,1,"3 HEAT, 3 ENERGY",,,,
 Big Asteroid,base,event,27,,"space, event",,,"2 temp, 4 titanium",,,,4 plant
 Biomass Combustors,base,automated,4,,"power, building",6% oxygen,-1,2 ENERGY,,,,1 PLANT
-Birds,base,active,10,,animal,13% oxygen,1 per animal on card,,,,add 1 animal to card,2 PLANT
+Birds,base,active,10,,animal,13% oxygen,1 per 1 animal on card,,,,1 animal on card,2 PLANT
 Black Polar Dust,base,automated,15,2 CREDIT,,,,"3 HEAT, 1 ocean",,,,
 Breathing Filters,base,automated,11,,science,7% oxygen,2,,,,,
 Bribed Committee,corporate,event,7,,"earth, event",,-2,2 TR,,,,
@@ -29,7 +29,7 @@ Bushes,base,automated,10,,plant,-10°C,,"2 PLANT, 2 plant",,,,
 Business Contacts,corporate,event,7,,"earth, event",,,"4 draw, then discard 2 of them",,,,
 Business Network,corporate,active,4,1 CREDIT,earth,,,,,,"1 draw, then buy or discard",
 Callisto Penal Mines,corporate,automated,24,,"jovian, space",,2,3 CREDIT,,,,
-Capital,base,automated,26,2 ENERGY,"city, building",4 ocean,1 per adjacent ocean,"5 CREDIT, 1 city",,,,
+Capital,base,automated,26,2 ENERGY,"city, building",4 ocean,1 per 1 adjacent ocean,"5 CREDIT, 1 city",,,,
 Carbonate Processing,base,automated,6,1 ENERGY,building,,,3 HEAT,,,,
 Caretaker Contract,corporate,active,3,,,0°C,,,,8 heat,1 TR,
 Cartel,corporate,automated,8,,earth,,,1 CREDIT per 1 player earth tag,,,,
@@ -37,7 +37,7 @@ CEO’s Favorite Project,corporate,event,1,,event,,,Add 1 resource to a card wit
 Cloud Seeding,base,automated,11,1 CREDIT,,3 ocean,,2 PLANT,,,,1 HEAT
 Colonizer Training Camp,base,automated,8,,"jovian, building",max 5% oxygen,2,,,,,
 Comet,base,event,21,,"space, event",,,"1 temp, 1 ocean",,,,3 plant
-Commercial District,corporate,automated,16,1 ENERGY,building,,1 per adjacent city,"4 CREDIT, special tile",,,,
+Commercial District,corporate,automated,16,1 ENERGY,building,,1 per 1 adjacent city,"4 CREDIT, special tile",,,,
 Convoy From Europa,base,event,15,,"space, event",,,"1 ocean, 1 draw",,,,
 Corporate Stronghold,corporate,automated,11,1 ENERGY,"city, building",,-2,"3 CREDIT, 1 city",,,,
 Cupola City,base,automated,16,1 ENERGY,"city, building",max 9% oxygen,,"3 CREDIT, 1 city",,,,
@@ -56,15 +56,15 @@ Energy Saving,base,automated,15,,power,,,1 ENERGY per 1 city,,,,
 Energy Tapping,corporate,automated,3,,power,,-1,1 ENERGY,,,,1 ENERGY
 Eos Chasma National Park,base,automated,16,,"plant, building",-12°C,1,"1 animal on other card, 3 plant, 2 CREDIT",,,,
 Equatorial Magnetizer,base,active,11,,building,,,,,1 ENERGY,1 TR,
-Extreme Cold Fungus,base,active,13,,microbe,max -10°C,,,,,1 plant or add 2 microbe to other card,
+Extreme Cold Fungus,base,active,13,,microbe,max -10°C,,,,,1 plant or 2 microbe on other card,
 Farming,base,automated,16,,plant,+4°C,2,"2 CREDIT, 2 PLANT, 2 plant",,,,
-Fish,base,active,9,,animal,+2°C,1 per animal on card,,,,add 1 animal to card,1 PLANT
+Fish,base,active,9,,animal,+2°C,1 per 1 animal on card,,,,1 animal on card,1 PLANT
 Flooding,base,event,7,,event,,-1,1 ocean,,,,4 credit from owner of a tile adjacent to placed ocean
 Food Factory,base,automated,12,1 PLANT,building,,1,4 CREDIT,,,,
 Fuel Factory,corporate,automated,6,1 ENERGY,building,,,"1 TITANIUM, 1 CREDIT",,,,
 Fueled Generators,base,automated,1,1 CREDIT,"power, building",,,1 ENERGY,,,,
 Fusion Power,base,automated,14,,"science, power, building",2 power tag,,3 ENERGY,,,,
-Ganymede Colony,base,automated,20,,"jovian, space, city",,1 per player jovian tag,1 city on reserved site,,,,
+Ganymede Colony,base,automated,20,,"jovian, space, city",,1 per 1 player jovian tag,1 city on reserved site,,,,
 Gene Repair,corporate,automated,12,,science,3 science tag,2,2 CREDIT,,,,
 Geothermal Power,base,automated,11,,"power, building",,,2 ENERGY,,,,
 GHG Factories,base,automated,11,1 ENERGY,building,,,4 HEAT,,,,
@@ -79,7 +79,7 @@ Hackers,corporate,automated,3,1 ENERGY,,,-1,2 CREDIT,,,,2 CREDIT
 Heat Trappers,base,automated,6,,"power, building",,-1,1 ENERGY,,,,2 HEAT
 Heather,base,automated,6,,plant,-14°C,,"1 PLANT, 1 plant",,,,
 Herbivores,base,active,12,,animal,8% oxygen,1 per 2 animal on card,1 animal on card,"when placing a greenery tile, 1 animal on card",,,1 PLANT
-Hired Raiders,corporate,event,1,,event,,,2 steel or 3 credit,,,,up to 2 steel or up to 3 credit
+Hired Raiders,corporate,event,1,,event,,,2 steel or 3 credit,,,,2 steel or 3 credit
 Ice Asteroid,base,event,23,,"space, event",,,2 ocean,,,,
 Ice Cap Melting,base,event,5,,event,+2°C,,1 ocean,,,,
 Immigrant City,base,active,13,"1 ENERGY, 2 CREDIT","city, building",,,1 city,"when a city is built, 1 CREDIT",,,
@@ -97,7 +97,7 @@ Interstellar Colony Ship,corporate,event,24,,"earth, space, event",5 science tag
 Invention Contest,corporate,event,2,,"science, event",,,"3 draw, then discard 2 of them",,,,
 Inventor’s Guild,corporate,active,9,,science,,,,,,"1 draw, then buy or discard",
 Investment Loan,corporate,event,3,1 CREDIT,"earth, event",,,10 credit,,,,
-Io Mining Industries ,corporate,automated,41,,"jovian, space",,1 per player jovian tag,"2 TITANIUM, 2 CREDIT",,,,
+Io Mining Industries,corporate,automated,41,,"jovian, space",,1 per 1 player jovian tag,"2 TITANIUM, 2 CREDIT",,,,
 Ironworks,base,active,11,,building,,,,,4 energy,"1 steel, 1 oxygen",
 Kelp Farming,base,automated,17,,plant,6 ocean,1,"2 CREDIT, 3 PLANT, 2 plant",,,,
 LaGrange Observatory,corporate,automated,9,,"science, space",,1,1 draw,,,,
@@ -107,14 +107,14 @@ Large Convoy,base,event,36,,"earth, space, event",,2,"1 ocean, 2 draw, 5 plant o
 Lava Flows,base,event,18,,event,,,"2 temp, special tile on volcano site",,,,
 Lichen,base,automated,7,,plant,-24°C,,1 PLANT,,,,
 Lightning Harvest,base,automated,8,,power,3 science tag,1,"1 ENERGY, 1 CREDIT",,,,
-Livestock,base,active,13,1 PLANT,animal,9% oxygen,1 per animal on card,2 CREDIT,,,add 1 animal to card,
+Livestock,base,active,13,1 PLANT,animal,9% oxygen,1 per 1 animal on card,2 CREDIT,,,1 animal on card,
 Local Heat Trapping,base,event,1,5 heat,event,,,4 plant or 2 animal on other card,,,,
 Lunar Beam,base,automated,13,2 CREDIT,"earth, power",,,"2 HEAT, 2 ENERGY",,,,
 Magnetic Field Dome,base,automated,5,2 ENERGY,building,,,"1 PLANT, 1 TR",,,,
 Magnetic Field Generator,base,automated,20,4 ENERGY,building,,,"2 PLANT, 3 TR",,,,
 Mangrove,base,automated,12,,plant,+4°C,1,1 greenery on ocean site,,,,
 Mars University,corporate,active,8,,"science, building",,1,,"when playing a science tag, may discard a card for 1 draw",,,
-Martian Rails,base,active,13,,building,,,,,1 energy,1 credit per city on mars,
+Martian Rails,base,active,13,,building,,,,,1 energy,1 credit per 1 city on mars,
 Mass Converter,corporate,active,8,,"science, power",5 science tag,,6 ENERGY,cards with a space tag cost 2 credit fewer,,,
 Media Archives,corporate,automated,8,,earth,,,1 credit per 1 event played by all players,,,,
 Media Group,corporate,active,6,,earth,,,,3 credit after playing an event card,,,
@@ -145,13 +145,13 @@ Permafrost Extraction,base,event,8,,event,-8°C,,1 ocean,,,,
 Peroxide Power,base,automated,7,1 CREDIT,"power, building",,,2 ENERGY,,,,
 Pets,base,active,10,,"earth, animal",,1 per 2 animal on card,1 animal on card,"when a city is built, 1 animal on card, animals cannot be removed from card",,,
 Phobos Space Haven,base,automated,25,,"space, city",,3,"1 TITANIUM, 1 city on reserved site",,,,
-Physics Complex,corporate,active,12,,"science, building",,2 per resource on card,,,6 energy,add 1 resource to card,
+Physics Complex,corporate,active,12,,"science, building",,2 per 1 resource on card,,,6 energy,1 resource on card,
 Plantation,base,automated,15,,plant,2 science tag,,1 greenery,,,,
 Power Grid,base,automated,18,,power,,,1 ENERGY per 1 player power tag,,,,
 Power Infrastructure,corporate,active,4,,"power, building",,,,,x energy,x credit,
 Power Plant,base,automated,4,,"power, building",,,1 ENERGY,,,,
 Power Supply Consortium,corporate,automated,5,,power,2 power tag,,1 ENERGY,,,,1 ENERGY
-Predators,base,active,14,,animal,11% oxygen,1 per animal on card,,,remove 1 animal from any card,add 1 animal to card,1 animal per turn (active)
+Predators,base,active,14,,animal,11% oxygen,1 per 1 animal on card,,,remove 1 animal from any card,1 animal on card,1 animal per turn (active)
 Protected Habitat,corporate,active,5,,,,,,"opponents may not remove player plant, animal, or microbe",,,
 Protected Valley,base,automated,23,,"plant, building",,,"2 CREDIT, 1 greenery on ocean site",,,,
 Quantum Extractor,corporate,active,13,,"science, power",4 science tag,,4 ENERGY,cards with a space tag cost 2 credit fewer,,,
@@ -166,10 +166,10 @@ Robotic Workforce,corporate,automated,9,,science,,,copy the immediate benefit of
 Rover Construction,base,active,8,,building,,1,,"when a city is built, 2 credit",,,
 Sabotage,corporate,event,1,,event,,,,,,,3 titanium or 4 steel or 7 credit
 Satellites,corporate,automated,10,,space,,,1 CREDIT per 1 player space tag,,,,
-Search for Life,base,active,3,,science,max 6% oxygen,3 if at least 1 resource on card,,,1 credit,"draw 1, if it has microbe tag, add 1 resource to card, then discard",
-Security Fleet,corporate,active,12,,space,,1 per resource on card,,,1 titanium,add 1 resource to card,
+Search for Life,base,active,3,,science,max 6% oxygen,3 if at least 1 resource on card,,,1 credit,"draw 1, if it has microbe tag, 1 resource on card, then discard",
+Security Fleet,corporate,active,12,,space,,1 per 1 resource on card,,,1 titanium,1 resource on card,
 Shuttles,base,active,10,1 ENERGY,space,5% oxygen,1,2 CREDIT,cards with a space tag cost 2 credit fewer,,,
-Small Animals,base,active,6,,animal,6% oxygen,1 per 2 animal on card,,,,add 1 animal to card,1 PLANT
+Small Animals,base,active,6,,animal,6% oxygen,1 per 2 animal on card,,,,1 animal on card,1 PLANT
 Soil Factory,base,automated,9,1 ENERGY,building,,1,1 PLANT,,,,
 Solar Power,base,automated,11,,"power, building",,1,1 ENERGY,,,,
 Solar Wind Power,base,automated,11,,"science, space, power",,,"1 ENERGY, 2 titanium",,,,
@@ -183,8 +183,8 @@ Standard Technology,corporate,active,6,,science,,,,3 credit after paying for a s
 Steelworks,base,active,15,,building,,,,,4 energy,"2 steel, 1 oxygen",
 Strip Mine,base,automated,25,2 ENERGY,building,,,"2 STEEL, 1 TITANIUM, 2 oxygen",,,,
 Subterranean Reservoir,base,event,11,,event,,,1 ocean,,,,
-Symbiotic Fungus,base,active,4,,microbe,-14°C,,,,,Add 1 microbe to other card,
-Tardigrades,corporate,active,4,,microbe,,1 per 4 microbe on card,,,,add 1 resource to card,
+Symbiotic Fungus,base,active,4,,microbe,-14°C,,,,,1 microbe on other card,
+Tardigrades,corporate,active,4,,microbe,,1 per 4 microbe on card,,,,1 microbe on card,
 Technology Demonstration,corporate,event,5,,"science, space, event",,,2 draw,,,,
 Tectonic Stress Power,base,automated,18,,"power, building",2 science tag,1,3 ENERGY,,,,
 Terraforming Ganymede,corporate,automated,33,,"jovian, space",,2,1 TR per 1 player jovian tag,,,,
@@ -197,11 +197,11 @@ Tropical Resort,corporate,automated,13,2 HEAT,building,,2,3 CREDIT,,,,
 Tundra Farming,base,automated,16,,plant,-6°C,2,"1 PLANT, 2 CREDIT, 1 plant",,,,
 Underground City,base,automated,18,2 ENERGY,"city, building",,,"2 STEEL, 1 city",,,,
 Underground Detonation,base,active,6,,building,,,,,10 credit,2 HEAT,
-Urbanized Area,base,automated,10,1 ENERGY,"city, building",,,"2 CREDIT, 1 city adjacent to at least 2 other city",,,,
+Urbanized Area,base,automated,10,1 ENERGY,"city, building",,,"2 CREDIT, 1 city adjacent to at least 2 cities",,,,
 Vesta Shipyard,corporate,automated,15,,"jovian, space",,1,1 TITANIUM,,,,
 Viral Enhancers,corporate,active,9,,"science, microbe",,,,"when playing a plant, microbe, or animal tag, (1 plant, or 1 microbe or 1 animal on card)",,,
 Virus,corporate,event,1,,"microbe, event",,,,,,,2 animal or 5 plant
-Water Import from Europa,base,active,25,,"jovian, space",,1 per player jovian tag,,,12 credit (titanium may be spent),1 ocean,
+Water Import from Europa,base,active,25,,"jovian, space",,1 per 1 player jovian tag,,,12 credit (titanium may be spent),1 ocean,
 Water Splitting Plant,base,active,12,,building,2 ocean,,,,3 energy,1 oxygen,
 Wave Power,base,automated,8,,power,3 ocean,1,1 ENERGY,,,,
 Windmills,base,automated,6,,"power, building",7% oxygen,1,1 ENERGY,,,,
