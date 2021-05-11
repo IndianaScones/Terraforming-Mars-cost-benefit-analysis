@@ -1,11 +1,11 @@
-Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
+Generation,Player,Action,Spent,Terraforming,Cities
 0,1,chose Thorgate,,,
 0,2,chose Teractor,,,
 0,1,bought 5,,,
 0,2,bought 6,,,
-1,1,played Giant Space Mirrors,,,
+1,1,played Giant Space Mirror,,,
 1,1,played Underground City,,,city
-1,2,played Convoy from Europa,,1 ocean,
+1,2,played Convoy From Europa,,1 ocean,
 1,2,played Pets,,,
 1,1,played Earth Office,,,
 1,2,standard Power Plant,,,
@@ -56,7 +56,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 6,1,bought 2,,,
 6,2,played Earth Catapult,,,
 6,2,used Business Network,,,
-6,1,played Robotic Workforce (Underground City),,,
+6,1,played Robotic Workforce,,,
 6,1,standard Power Plant,,,
 6,2,played Symbiotic Fungus,,,
 6,2,used Tardigrades,,,
@@ -110,7 +110,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 9,2,used Business Network,,,
 9,2,used Development Center,,,
 9,1,used Physics Complex,,,
-9,1,played CEO's Favorite Project,,,
+9,1,played CEO’s Favorite Project,,,
 9,2,played Urbanized Area,1 steel,,city
 9,2,used Space Elevator,,,
 9,1,played Solar Power,3 steel,,
@@ -249,7 +249,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 14,2,used Tardigrades,,,
 14,2,used Symbiotic Fungus,,,
 14,1,converted plants into greenery,,,
-14,2,played Inventor's Guild,,,
+14,2,played Inventor’s Guild,,,
 14,2,played Adapted Lichen,,,
 14,1,standard sell 2 patents,,,
 14,2,used Birds,,,

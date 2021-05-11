@@ -1,4 +1,4 @@
-Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
+Generation,Player,Action,Spent,Terraforming,Cities
 0,1,chose Ecoline,,,
 0,2,chose Teractor,,,
 0,1,bought 6,,,
@@ -38,7 +38,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 5,1,bought 3,,,
 5,2,bought 3,,,
 5,1,played Advanced Alloys,,,
-5,1,played Convoy from Europa,2 titanium,1 ocean,
+5,1,played Convoy From Europa,2 titanium,1 ocean,
 5,2,played Research Outpost,,,city
 5,2,converted plants to greenery,,1 oxygen,
 5,1,used Restricted Area,,,
@@ -48,7 +48,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 6,2,bought 3,,,
 6,1,bought 2,,,
 6,2,played Regolith Eaters,,,
-6,2,played Protected Habitats,,,
+6,2,played Protected Habitat,,,
 6,1,played Big Asteroid,4 titanium,2 temperature,
 6,1,standard Asteroid,,1 temperature,
 6,2,converted heat to temperature,,1 temperature,
@@ -118,7 +118,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 11,2,bought 2,,,
 11,1,played Strip Mine,,"2 oxygen, 1 temperature",
 11,1,played Quantum Extractor,,,
-11,2,played IO Mining Industries,2 titanium,,
+11,2,played Io Mining Industries,2 titanium,,
 11,2,played Great Escarpment Consortium,,,
 11,1,played Phobos Space Haven,5 titanium,,city
 11,1,used Space Elevator,,,
@@ -178,7 +178,7 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 13,1,played Cartel,,,
 13,1,played Medical Lab,,,
 13,2,standard sell 4 patents,,,
-13,2,played Open City (3 st),,,city
+13,2,played Open City,3 steel,,city
 13,1,played Ganymede Colony,3 titanium,,city
 13,1,played Callisto Penal Mines,4 titanium,,
 13,2,converted plants to greenery,,1 oxygen,
@@ -220,8 +220,8 @@ Generation,Player,Action,Spent Steel/Titanium,Terraforming,Cities
 15,1,played Towing a Comet,4 titanium,1 ocean,
 15,1,used AI Central,,,
 15,2,used Water Import from Europa,,1 ocean,
-15,2,played Advanced Ecosystem,,,
-15,1,played Magnetic Field Generators,,,
+15,2,played Advanced Ecosystems,,,
+15,1,played Magnetic Field Generator,,,
 15,1,used Physics Complex,,,
 15,2,standard City,,,city
 15,2,standard City,,,city
