@@ -166,7 +166,7 @@ Robotic Workforce,corporate,automated,9,,science,,,copy the immediate benefit of
 Rover Construction,base,active,8,,building,,1,,"when a city is built, 2 credit",,,
 Sabotage,corporate,event,1,,event,,,,,,,3 titanium or 4 steel or 7 credit
 Satellites,corporate,automated,10,,space,,,1 CREDIT per 1 player space tag,,,,
-Search for Life,base,active,3,,science,max 6% oxygen,3 if at least 1 resource on card,,,1 credit,"draw 1, if it has microbe tag, 1 resource on card, then discard",
+Search for Life,base,active,3,,science,max 6% oxygen,3 if at least 1 resource on card,,,1 credit,"reveal 1, if it has microbe tag, 1 resource on card",
 Security Fleet,corporate,active,12,,space,,1 per 1 resource on card,,,1 titanium,1 resource on card,
 Shuttles,base,active,10,1 ENERGY,space,5% oxygen,1,2 CREDIT,cards with a space tag cost 2 credit fewer,,,
 Small Animals,base,active,6,,animal,6% oxygen,1 per 2 animal on card,,,,1 animal on card,1 PLANT
